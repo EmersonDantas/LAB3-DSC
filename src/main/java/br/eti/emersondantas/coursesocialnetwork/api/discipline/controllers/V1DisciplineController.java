@@ -1,11 +1,16 @@
 package br.eti.emersondantas.coursesocialnetwork.api.discipline.controllers;
 
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.Discipline;
+import br.eti.emersondantas.coursesocialnetwork.api.discipline.dto.CommentDTO;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.dto.DisciplineCreationDTO;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.dto.DisciplineDTO;
+import br.eti.emersondantas.coursesocialnetwork.api.discipline.dto.DisciplineListDTO;
+import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.CreateCommentService;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.CreateDisciplineService;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.DeleteDisciplineService;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.GetDisciplineService;
+import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.LikeDisciplineService;
+import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.ListDisciplineRankingLikesService;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.ListDisciplineRankingService;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.ListDisciplineService;
 import br.eti.emersondantas.coursesocialnetwork.api.discipline.services.UpdateNameDisciplineService;
@@ -44,6 +49,12 @@ public class V1DisciplineController {
 
     private final UpdateNoteDisciplineService updateNoteDisciplineService;
 
+    private final LikeDisciplineService likeDisciplineService;
+
+    private final CreateCommentService createCommentService;
+
+    private final ListDisciplineRankingLikesService listDisciplineRankingLikesService;
+
     @ResponseStatus(code = HttpStatus.OK)
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public DisciplineDTO get(@PathVariable("id") Long id){
@@ -57,15 +68,15 @@ public class V1DisciplineController {
     }
 
     @ResponseStatus(code = HttpStatus.OK)
-    @GetMapping(value = "/ranking", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<DisciplineDTO> listRanking(){
-        return DisciplineDTO.from(this.listDisciplineRankingService.listRanking());
+    @GetMapping(value = "/ranking/notas", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<DisciplineListDTO> listRanking(){
+        return DisciplineListDTO.from(this.listDisciplineRankingService.listRanking());
     }
 
     @ResponseStatus(code = HttpStatus.OK)
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<DisciplineDTO> listAll(){
-        return DisciplineDTO.from(this.listDisciplineService.list());
+    public List<DisciplineListDTO> listAll(){
+        return DisciplineListDTO.from(this.listDisciplineService.list());
     }
 
     @ResponseStatus(code = HttpStatus.OK)
@@ -85,5 +96,24 @@ public class V1DisciplineController {
     public DisciplineDTO updateNote(@PathVariable("id") Long id, @RequestBody String nota){
         return DisciplineDTO.from(this.updateNoteDisciplineService.updateNote(id, nota));
     }
+
+    @ResponseStatus(code = HttpStatus.OK)
+    @PatchMapping(value = "/{id}/likes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DisciplineDTO likeDiscipline(@PathVariable("id") Long id){
+        return DisciplineDTO.from(this.likeDisciplineService.likeDiscipline(id));
+    }
+
+    @ResponseStatus(code = HttpStatus.OK)
+    @PatchMapping(value = "/{id}/comentarios", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DisciplineDTO createComment(@PathVariable("id") Long id, @RequestBody CommentDTO comment){
+        return DisciplineDTO.from(this.createCommentService.create(comment, id));
+    }
+
+    @ResponseStatus(code = HttpStatus.OK)
+    @GetMapping(value = "/ranking/likes", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<DisciplineListDTO> listRankingLikes(){
+        return DisciplineListDTO.from(this.listDisciplineRankingLikesService.listRankingLikes());
+    }
+
 
 }

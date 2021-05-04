@@ -4,5 +4,26 @@ server:
 spring:
     application:
         name: LAB1-DSC
+        datasource:
+            driverClassName: org.h2.Driver
+            url: jdbc:h2:mem:testdb
+            username: sa
+            password:
+            initialization-mode: always
+
+    h2:
+        console:
+            enabled: true
+    jpa:
+        show-sql: true
+        open-in-view: true
+        hibernate:
+            ddl-auto: none
+    flyway:
+        enabled: true
+        baseline-on-migrate: true
+        validate-on-migrate: true
+        locations: classpath:/db/migration
+        out-of-order: false
     profiles:
-        active: test #dev or test
+        active: default

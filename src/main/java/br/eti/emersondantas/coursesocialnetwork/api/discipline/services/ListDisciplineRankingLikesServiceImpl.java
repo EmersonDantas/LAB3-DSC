@@ -9,13 +9,13 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
-public class ListDisciplineRankingServiceImpl implements ListDisciplineRankingService {
+public class ListDisciplineRankingLikesServiceImpl implements ListDisciplineRankingLikesService {
 
     private final DisciplineRepository disciplineRepository;
 
     @Override
-    public List<Discipline> listRanking() {
-        return this.disciplineRepository.findAllByOrderByNotaDesc();
+    public List<Discipline> listRankingLikes() {
+        return this.disciplineRepository.findAllByOrderByLikesDesc();
     }
 
 }

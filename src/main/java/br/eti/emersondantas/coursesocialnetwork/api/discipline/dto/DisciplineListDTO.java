@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @ToString
 @Builder(builderClassName = "Builder")
-public class DisciplineDTO implements Serializable {
+public class DisciplineListDTO implements Serializable {
 
     private static final long serialVersionUID = -214863204542986002L;
 
@@ -34,19 +34,16 @@ public class DisciplineDTO implements Serializable {
 
     private Long likes;
 
-    private List<CommentDTO> comentarios;
-
-    public static DisciplineDTO from(Discipline discipline) {
-        return DisciplineDTO.builder()
+    public static DisciplineListDTO from(Discipline discipline) {
+        return DisciplineListDTO.builder()
                 .id(discipline.getId())
                 .nome(discipline.getNome())
                 .nota(discipline.getNota())
                 .likes(discipline.getLikes())
-                .comentarios(CommentDTO.from(discipline.getComentarios()))
                 .build();
     }
 
-    public static List<DisciplineDTO> from(List<Discipline> disciplines) {
-        return disciplines.stream().map(DisciplineDTO::from).collect(Collectors.toList());
+    public static List<DisciplineListDTO> from(List<Discipline> disciplines) {
+        return disciplines.stream().map(DisciplineListDTO::from).collect(Collectors.toList());
     }
 }
