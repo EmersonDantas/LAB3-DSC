@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LikeDisciplineService {
 
-    Discipline likeDiscipline(Long id);
+    Discipline likeDiscipline(Long id, String authHeader);
 
 }

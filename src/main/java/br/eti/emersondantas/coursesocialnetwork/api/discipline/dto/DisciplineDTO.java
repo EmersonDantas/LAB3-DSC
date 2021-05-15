@@ -42,7 +42,7 @@ public class DisciplineDTO implements Serializable {
                 .nome(discipline.getNome())
                 .nota(discipline.getNota())
                 .likes(discipline.getLikes())
-                .comentarios(CommentDTO.from(discipline.getComentarios()))
+                .comentarios(discipline.getComentarios() != null ? CommentDTO.from(discipline.getComentarios()) : null)
                 .build();
     }
 

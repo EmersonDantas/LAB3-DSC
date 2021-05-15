@@ -7,6 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UpdateNoteDisciplineService {
 
-    Discipline updateNote(Long id, String newNote);
+    Discipline updateNote(Long id, String newNote, String authHeader);
 
 }

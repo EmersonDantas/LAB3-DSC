@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -93,20 +94,25 @@ public class V1DisciplineController {
 
     @ResponseStatus(code = HttpStatus.OK)
     @PatchMapping(value = "/{id}/nota", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DisciplineDTO updateNote(@PathVariable("id") Long id, @RequestBody String nota){
-        return DisciplineDTO.from(this.updateNoteDisciplineService.updateNote(id, nota));
+    public DisciplineDTO updateNote(@PathVariable("id") Long id,
+                                    @RequestBody String nota,
+                                    @RequestHeader("Authorization") String header){
+        return DisciplineDTO.from(this.updateNoteDisciplineService.updateNote(id, nota, header));
     }
 
     @ResponseStatus(code = HttpStatus.OK)
     @PatchMapping(value = "/{id}/likes", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DisciplineDTO likeDiscipline(@PathVariable("id") Long id){
-        return DisciplineDTO.from(this.likeDisciplineService.likeDiscipline(id));
+    public DisciplineDTO likeDiscipline(@PathVariable("id") Long id,
+                                        @RequestHeader("Authorization") String header){
+        return DisciplineDTO.from(this.likeDisciplineService.likeDiscipline(id, header));
     }
 
     @ResponseStatus(code = HttpStatus.OK)
     @PatchMapping(value = "/{id}/comentarios", produces = MediaType.APPLICATION_JSON_VALUE)
-    public DisciplineDTO createComment(@PathVariable("id") Long id, @RequestBody CommentDTO comment){
-        return DisciplineDTO.from(this.createCommentService.create(comment, id));
+    public DisciplineDTO createComment(@PathVariable("id") Long id,
+                                       @RequestBody CommentDTO comment,
+                                       @RequestHeader("Authorization") String header){
+        return DisciplineDTO.from(this.createCommentService.create(comment, id, header));
     }
 
     @ResponseStatus(code = HttpStatus.OK)
@@ -114,6 +120,5 @@ public class V1DisciplineController {
     public List<DisciplineListDTO> listRankingLikes(){
         return DisciplineListDTO.from(this.listDisciplineRankingLikesService.listRankingLikes());
     }
-
 
 }

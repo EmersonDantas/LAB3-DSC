@@ -7,8 +7,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class InvalidTypeException extends RuntimeException {
     private static final long serialVersionUID = 8327468025138049539L;
 
+    public InvalidTypeException(String s){
+        super(s);
+    }
+
     public InvalidTypeException(){
-        super("Tipo de dado enviado é inválido.");
+        super("Tipo inválido.");
     }
 
 }

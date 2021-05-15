@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CreateCommentService {
 
-    Discipline create(CommentDTO comment, Long disciplineId);
+    Discipline create(CommentDTO comment, Long disciplineId, String authHeader);
 
 }
