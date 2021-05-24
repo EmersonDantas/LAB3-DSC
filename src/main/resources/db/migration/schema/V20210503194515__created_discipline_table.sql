@@ -8,6 +8,5 @@ CREATE SEQUENCE discipline_sequence
 CREATE TABLE IF NOT EXISTS discipline (
     id int8 NOT NULL DEFAULT nextval('discipline_sequence'),
     nome varchar(1024) NOT NULL,
-    nota decimal(20) NULL,
-    amount_likes int8 NULL DEFAULT 0
+    nota decimal(20) NULL
 );

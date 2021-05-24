@@ -2,7 +2,6 @@ package br.eti.emersondantas.coursesocialnetwork.api.discipline;
 
 import br.eti.emersondantas.coursesocialnetwork.api.user.User;
 import lombok.Builder;
-import lombok.NonNull;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -17,18 +16,15 @@ import java.util.Objects;
 
 @ToString
 @Builder(builderClassName = "Builder")
-@Entity
-public class Comment implements Serializable {
+@Entity(name = "dsc_like")
+public class Like implements Serializable {
 
-    private static final long serialVersionUID = -1213774996663578291L;
+    private static final long serialVersionUID = -2245639974192919120L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_generator")
-    @SequenceGenerator(name = "comment_generator", sequenceName = "comment_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "like_generator")
+    @SequenceGenerator(name = "like_generator", sequenceName = "like_sequence", allocationSize = 1)
     private Long id;
-
-    @NonNull
-    private String comentario;
 
     @JoinColumn(name = "discipline_id")
     @ManyToOne
@@ -38,14 +34,17 @@ public class Comment implements Serializable {
     @ManyToOne
     private User usuario;
 
-    public Comment() {
+    public Like() {
     }
 
-    public Comment(Long id, @NonNull String comentario, Discipline disciplina, User usuario) {
+    public Like(Long id, Discipline disciplina, User usuario) {
         this.id = id;
-        this.comentario = comentario;
         this.disciplina = disciplina;
         this.usuario = usuario;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Long getId() {
@@ -54,14 +53,6 @@ public class Comment implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
     }
 
     public Discipline getDisciplina() {
@@ -80,16 +71,12 @@ public class Comment implements Serializable {
         this.usuario = usuario;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Comment comment = (Comment) o;
-        return getId().equals(comment.getId());
+        Like like = (Like) o;
+        return getId().equals(like.getId());
     }
 
     @Override

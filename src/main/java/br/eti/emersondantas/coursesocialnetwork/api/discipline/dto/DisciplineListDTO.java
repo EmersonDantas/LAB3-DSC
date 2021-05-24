@@ -32,14 +32,14 @@ public class DisciplineListDTO implements Serializable {
 
     private Double nota;
 
-    private Long likes;
+    private Long qtdLikes;
 
     public static DisciplineListDTO from(Discipline discipline) {
         return DisciplineListDTO.builder()
                 .id(discipline.getId())
                 .nome(discipline.getNome())
                 .nota(discipline.getNota())
-                .likes(discipline.getLikes())
+                .qtdLikes(discipline.getLikes() != null ? discipline.getLikes().size() : 0L)
                 .build();
     }
 

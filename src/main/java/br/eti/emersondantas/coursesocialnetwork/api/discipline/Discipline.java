@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.NonNull;
 import lombok.ToString;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,11 +30,11 @@ public class Discipline {
 
     private Double nota;
 
-    @Column(name = "amount_likes")
-    private Long likes;
-
     @OneToMany(mappedBy = "disciplina")
     private List<Comment> comentarios = new ArrayList<>();
+
+    @OneToMany(mappedBy = "disciplina")
+    private List<Like> likes = new ArrayList<>();
 
     public static Discipline from(DisciplineCreationDTO discipline) {
         return Discipline.builder()
@@ -44,12 +43,12 @@ public class Discipline {
                 .build();
     }
 
-    public Discipline(Long id, @NonNull String nome, Double nota, Long likes, List<Comment> comentarios) {
+    public Discipline(Long id, @NonNull String nome, Double nota, List<Comment> comentarios, List<Like> likes) {
         this.id = id;
         this.nome = nome;
         this.nota = nota;
-        this.likes = likes;
         this.comentarios = comentarios;
+        this.likes = likes;
     }
 
     public Discipline() {
@@ -79,20 +78,20 @@ public class Discipline {
         this.nota = nota;
     }
 
-    public Long getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Long likes) {
-        this.likes = likes;
-    }
-
     public List<Comment> getComentarios() {
         return comentarios;
     }
 
     public void setComentarios(List<Comment> comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 
     @Override

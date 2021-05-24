@@ -5,6 +5,8 @@ import br.eti.emersondantas.coursesocialnetwork.api.discipline.DisciplineReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,7 +17,10 @@ public class ListDisciplineRankingLikesServiceImpl implements ListDisciplineRank
 
     @Override
     public List<Discipline> listRankingLikes() {
-        return this.disciplineRepository.findAllByOrderByLikesDesc();
+        List<Discipline> disciplines = this.disciplineRepository.findAllDisciplinesOrderByLikes();
+        disciplines.sort(Comparator.comparingInt(disciplneA -> disciplneA.getLikes().size()));
+        Collections.reverse(disciplines);
+        return disciplines;
     }
 
 }

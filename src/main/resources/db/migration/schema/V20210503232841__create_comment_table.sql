@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS comment (
     id int8 NOT NULL DEFAULT nextval('comment_sequence'),
     comentario varchar(2048) NOT NULL,
     discipline_id int8 NOT NULL,
+    user_id int8 NOT NULL,
 
-    CONSTRAINT discipline_fk FOREIGN KEY (discipline_id) REFERENCES discipline(id) ON DELETE CASCADE
+    CONSTRAINT discipline_fk FOREIGN KEY (discipline_id) REFERENCES discipline(id) ON DELETE CASCADE,
+    CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES dsc_user(id) ON DELETE CASCADE
 );
